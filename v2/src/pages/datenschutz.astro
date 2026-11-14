@@ -1,27 +1,111 @@
 ---
-// PLATZHALTER: Die neue Datenschutzerklärung liefert der Verein. Bis dahin steht hier nur ein Hinweis.
-// Den Text bitte nicht selbst formulieren, sondern 1:1 aus der Vorlage übernehmen.
+// Datenschutzerklärung für die statische Website (v2). Stand: November 2026.
+// Grundlage: Die Seite lädt keine externen Inhalte (Schriften, Bilder und Videos liegen auf dem eigenen Webspace,
+// keine Karte, kein Tracking, keine Cookies). Kommt ein neuer Dienst dazu, muss dieser Text ergänzt werden.
 import Seite from "../layouts/Seite.astro";
-import { verein } from "../data/site";
+import { verein, tel } from "../data/site";
+
+const link = (href: string, text: string) => ({ href, text });
+const github = link("https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement", "Datenschutzerklärung von GitHub");
+const cobot = link("https://www.cobot.me/privacy", "Datenschutzerklärung von Cobot");
+const meta = link("https://www.facebook.com/privacy/policy/", "Datenschutzrichtlinie von Meta");
+const linkedin = link("https://de.linkedin.com/legal/privacy-policy", "Datenschutzrichtlinie von LinkedIn");
 ---
 
 <Seite titel="Datenschutz">
   <section class="abschnitt">
     <div class="container prosa">
       <h1>Datenschutzerklärung</h1>
-      <p class="hinweis">
-        Die Datenschutzerklärung für die neue Website wird gerade überarbeitet und folgt in Kürze. Bei Fragen zum Datenschutz erreichst du uns unter
-        <a href={`mailto:${verein.email}`}>{verein.email}</a>.
+
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        Coworking Eichsfeld e. V., Windische Gasse 11A, 37308 Heilbad Heiligenstadt, vertreten durch den Vorstand<br />
+        E-Mail: <a href={`mailto:${verein.email}`}>{verein.email}</a> · Telefon: <a href={tel(verein.telefonZentral)}>{verein.telefonZentral}</a>
       </p>
+      <p>
+        Einen Datenschutzbeauftragten haben wir nicht bestellt, da wir dazu gesetzlich nicht verpflichtet sind. Bei Fragen zum Datenschutz wenden Sie sich bitte an die oben genannten Kontaktdaten.
+      </p>
+
+      <h2>2. Aufruf der Website</h2>
+      <p>
+        Die Website wird über GitHub Pages der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA, bereitgestellt. Die Auslieferung erfolgt über das Content-Delivery-Netzwerk der Fastly, Inc. Bei jedem Aufruf werden automatisch technisch notwendige Daten verarbeitet: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Referrer-URL sowie Browser und Betriebssystem. Das dient der sicheren und stabilen Auslieferung der Website (Art. 6 Abs. 1 lit. f DSGVO). Wie lange diese Daten gespeichert werden, legt GitHub fest. Darauf haben wir keinen Einfluss.
+      </p>
+      <p>
+        Dabei können Daten in die USA übermittelt werden. GitHub, Inc. ist unter dem EU-US Data Privacy Framework zertifiziert (Angemessenheitsbeschluss, Art. 45 DSGVO). Näheres finden Sie in der
+        <a href={github.href} target="_blank" rel="noopener">{github.text}</a>.
+      </p>
+      <p>
+        Diese Website setzt keine Cookies und nutzt weder Tracking noch Analyse-Tools. Schriften, Bilder und Videos werden zusammen mit der Website ausgeliefert. Es werden keine Daten an Dritte wie Google Fonts oder YouTube übertragen.
+      </p>
+
+      <h2>3. Kontakt per E-Mail oder Telefon</h2>
+      <p>
+        Wenn Sie uns schreiben oder anrufen, verarbeiten wir Ihre Kontaktdaten und die Angaben in Ihrer Nachricht, um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn Ihre Anfrage eine Buchung, Mitgliedschaft oder Veranstaltung betrifft, sonst Art. 6 Abs. 1 lit. f DSGVO. Wir löschen die Daten, wenn die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+      </p>
+      <p>Unser E-Mail-Postfach wird von der IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, betrieben.</p>
+
+      <h2>4. Buchung über Cobot</h2>
+      <p>
+        Für die Buchung von Arbeitsplätzen, Tickets und Räumen leiten wir Sie auf unsere Buchungsseite bei Cobot weiter (<a href={verein.buchung} target="_blank" rel="noopener">coworking-eichsfeld.cobot.me</a>). Cobot wird von der Upstream – Agile GmbH, Harzer Str. 39, 12059 Berlin, betrieben und verarbeitet Ihre Angaben in unserem Auftrag, um Buchung und Abrechnung abzuwickeln (Art. 6 Abs. 1 lit. b DSGVO). Einzelheiten finden Sie in der
+        <a href={cobot.href} target="_blank" rel="noopener">{cobot.text}</a>.
+      </p>
+
+      <h2>5. Mitgliedschaft im Verein</h2>
+      <p>
+        Wenn Sie Mitglied werden, verarbeiten wir die Angaben aus Ihrem Mitgliedsantrag, insbesondere Name, Anschrift und Kontaktdaten sowie für den Beitragseinzug Kontoinhaber und IBAN (SEPA-Lastschriftmandat). Zweck ist die Verwaltung der Mitgliedschaft und der Einzug der Beiträge (Art. 6 Abs. 1 lit. b DSGVO). Zum Einzug geben wir die Bankdaten an unsere Bank weiter. Nach dem Ende der Mitgliedschaft löschen wir die Daten, soweit keine gesetzlichen Aufbewahrungspflichten bestehen.
+      </p>
+      <p>
+        Bitte beachten Sie: Eine normale E-Mail ist nicht verschlüsselt. Wenn Sie Ihre Bankdaten nicht per E-Mail senden möchten, können Sie den Mitgliedsantrag auch per Post schicken oder vor Ort in Heiligenstadt abgeben.
+      </p>
+
+      <h2>6. Social Media</h2>
+      <p>
+        Wir betreiben Profile bei Facebook und Instagram (Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Irland) sowie bei LinkedIn (LinkedIn Ireland Unlimited Company, Wilton Place, Dublin 2, Irland). Auf der Website sind diese Profile nur verlinkt. Daten werden erst übertragen, wenn Sie einen Link anklicken.
+      </p>
+      <p>
+        Wenn Sie unsere Profile besuchen, verarbeiten die Plattformen Ihre Daten nach eigenen Bedingungen
+        (<a href={meta.href} target="_blank" rel="noopener">{meta.text}</a>, <a href={linkedin.href} target="_blank" rel="noopener">{linkedin.text}</a>). Für die Seitenstatistiken („Insights“) sind wir mit Meta bzw. LinkedIn gemeinsam verantwortlich (Art. 26 DSGVO). Die wesentlichen Inhalte dieser Vereinbarungen stellen die Plattformen bereit. Ihre Rechte können Sie am wirksamsten direkt bei der Plattform geltend machen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser Interesse ist die Öffentlichkeitsarbeit für den Verein.
+      </p>
+
+      <h2>7. Links und Kalendereinträge</h2>
+      <p>
+        Die Website verlinkt auf unsere Netzwerkpartner, auf OpenStreetMap (Anfahrt) und auf Google Kalender (Veranstaltungen). Daten werden erst übertragen, wenn Sie einen solchen Link anklicken. Dann gilt die Datenschutzerklärung des jeweiligen Anbieters. Die Kalenderdateien (.ics) zu unseren Veranstaltungen werden direkt von unserer Website geladen.
+      </p>
+
+      <h2>8. Ihre Rechte</h2>
+      <p>
+        Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit (Art. 15 bis 18 und 20 DSGVO). Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3 DSGVO).
+      </p>
+      <p>
+        Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), zum Beispiel bei dem für uns zuständigen Thüringer Landesbeauftragten für den Datenschutz und die Informationsfreiheit (TLfDI), Häßlerstraße 8, 99096 Erfurt, <a href="https://www.tlfdi.de" target="_blank" rel="noopener">www.tlfdi.de</a>.
+      </p>
+
+      <h2>9. Widerspruchsrecht</h2>
+      <p>
+        <strong>
+          Soweit wir Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeiten, können Sie dem aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen (Art. 21 DSGVO). Eine formlose Nachricht an {verein.email} genügt.
+        </strong>
+      </p>
+
+      <h2>10. Änderungen</h2>
+      <p>
+        Wir passen diese Datenschutzerklärung an, wenn sich unsere Website oder die rechtlichen Vorgaben ändern. Es gilt jeweils die hier veröffentlichte Fassung.
+      </p>
+      <p class="stand">Stand: November 2026</p>
     </div>
   </section>
 </Seite>
 
 <style>
-  .hinweis {
-    background: var(--akzent-hell);
-    border-left: 4px solid var(--akzent);
-    padding: 16px 20px;
-    border-radius: 8px;
+  .prosa {
+    max-width: 78ch;
+  }
+  h1 {
+    margin-bottom: 1em;
+  }
+  .stand {
+    margin-top: 2em;
+    color: var(--text-leise);
+    font-size: 0.9em;
   }
 </style>
