@@ -14,6 +14,7 @@ const alt = {
   "/events/after-work": "/veranstaltungen/after-work",
   "/events/after-work-954": "/veranstaltungen/after-work",
   "/events/thex-sprechtag-794": "/veranstaltungen/thex-sprechtag",
+  "/cowork-mitte": "/coworkmitte",
   "/events/digi-kidz-programmieren-tuefteln-und-entdecken": "/veranstaltungen/digikidz-programmieren",
 };
 
