@@ -2,7 +2,7 @@
 titel: "Nora Boeckler: (fast) alles im Griff"
 kurz: Comedy im Coworking – Nora Boeckler mit ihrem neuen Soloprogramm über Elternschaft, Beziehung und Selbstoptimierung.
 bild: ../../assets/veranstaltungen/nora-boeckler.png
-bildAlt: "Nora Boeckler: (fast) alles im Griff – 11.12.2026, 19:30 Uhr"
+bildAlt: "Nora Boeckler mit den Figuren aus ihrem Programm (fast) alles im Griff"
 adresse: Windische Gasse 11A, 37308 Heilbad Heiligenstadt
 termine:
   - { datum: "2026-12-11", von: "19:30", bis: "22:00" }
