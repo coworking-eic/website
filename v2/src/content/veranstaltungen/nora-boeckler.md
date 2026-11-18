@@ -18,3 +18,7 @@ Mit über 15 Jahren Erfahrung auf Bühne, im TV und Kino gehört sie zu den poin
 - **Einlass:** ab 18:30 Uhr
 - **Ende:** ca. 22:00 Uhr
 - **Wo:** Coworking Eichsfeld e.V., Windische Gasse 11A, 37308 Heilbad Heiligenstadt
+
+Mehr zu Nora Boeckler unter [www.nora-boeckler.de](https://www.nora-boeckler.de).
+
+![Plakat: Nora Boeckler – (fast) alles im Griff](../../assets/veranstaltungen/nora-boeckler-plakat.jpg)
