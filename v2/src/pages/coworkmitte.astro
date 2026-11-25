@@ -9,6 +9,8 @@ import leinefelde from "../assets/bilder/leinefelde-aussen.jpg";
 import gcf from "../assets/partner/gcf.png";
 import coworkland from "../assets/partner/coworkland.jpg";
 import karte from "../assets/coworkmitte/karte.webp";
+import uslar from "../assets/coworkmitte/uslar.webp";
+import arbeitsplaetze from "../assets/bilder/arbeitsplaetze.jpg";
 import { url } from "../lib/url";
 
 const WEBSITE = "https://www.coworkmitte.com/";
@@ -33,12 +35,61 @@ const vorteile = [
   },
 ];
 
+// Die Vorstellung je Space; ein Foto kann über `bild` ergänzt werden.
 const spaces = [
-  { name: "anSTADTBUERO", ort: "Uslar", link: "https://stadtbue.ro/" },
-  { name: "FachWork", ort: "Northeim", link: "https://pg-puche.de/fachwork-coworking-space/" },
-  { name: "NewKammer", ort: "Seesen", link: "https://www.stadtverwaltung-seesen.de/Wirtschaft/Gr%C3%BCndung-und-Coworking/" },
-  { name: "LandErfolg", ort: "Lenglern", link: "https://landerfolg-lenglern.de/" },
-  { name: "Coworking Eichsfeld", ort: "Heiligenstadt & Leinefelde-Worbis", link: "/", heimat: true },
+  {
+    id: "uslar",
+    name: "anSTADTBUERO",
+    ort: "Uslar",
+    link: "https://stadtbue.ro/",
+    bild: uslar,
+    bildAlt: "Arbeitsplätze im anSTADTBUERO in Uslar mit großem Bildschirm an der Wand",
+    absaetze: [
+      "Ein Ort, der aus der Community entstanden ist. Im Vordergrund stehen die Menschen, die hier arbeiten wollen – als wohnortnahe Alternative zwischen Pendeln und Homeoffice oder als Arbeitsraum auf Reisen.",
+      "Eingebettet in die Uslarer Altstadt stehen höhenverstellbare Sitz-Steh-Schreibtische mit Monitoren bereit. Dazu kommen schnelles Internet, ein Besprechungsraum für bis zu 6 Personen, eine kleine Kaffee- und Teeküche sowie eine Sitzecke.",
+    ],
+  },
+  {
+    id: "northeim",
+    name: "FachWork",
+    ort: "Northeim",
+    link: "https://pg-puche.de/fachwork-coworking-space/",
+    absaetze: [
+      "Der Coworking Space FachWork bietet Pendelnden, Selbstständigen und allen, die nicht immer am selben Ort arbeiten möchten, einen Arbeitsplatz abseits des regulären Arbeitsortes.",
+      "Unter dem Motto „Vernetzen – Planen – Bilden“ entsteht ein inspirierendes Arbeitsklima, in dem man sich auch mit dem Team der planungsgruppe puche austauschen kann.",
+    ],
+  },
+  {
+    id: "seesen",
+    name: "NewKammer",
+    ort: "Seesen",
+    link: "https://www.stadtverwaltung-seesen.de/Wirtschaft/Gr%C3%BCndung-und-Coworking/",
+    absaetze: [
+      "Die NewKammer ist Seesens zentrale Anlaufstelle für innovatives Arbeiten im ländlichen Raum: moderne Einzel- und Gruppenschreibtische, ein Besprechungsraum sowie Veranstaltungsflächen für Seminare und Workshops.",
+    ],
+  },
+  {
+    id: "lenglern",
+    name: "LandErfolg",
+    ort: "Lenglern",
+    link: "https://landerfolg-lenglern.de/",
+    absaetze: [
+      "Mitten in Lenglerns Landidylle ist Platz für modernes Arbeiten, kreative Meetings und erholsame Pausen unterm Kastanienbaum oder im Obstgarten.",
+      "Ein Meetingraum im Erdgeschoss und sechs Arbeitsplätze im Obergeschoss, erreichbar mit Bahn und Bus, per Rad und Auto.",
+    ],
+  },
+  {
+    id: "eichsfeld",
+    name: "Coworking Eichsfeld",
+    ort: "Heiligenstadt & Leinefelde-Worbis",
+    link: url("/"),
+    heimat: true,
+    bild: arbeitsplaetze,
+    bildAlt: "Arbeitsplätze bei Coworking Eichsfeld",
+    absaetze: [
+      "Zwei Standorte in Heilbad Heiligenstadt und Leinefelde-Worbis: flexibel mietbare Plätze mit Highspeed-Internet, Drucker, Telefonbox, Gemeinschaftsküche und Besprechungsräumen.",
+    ],
+  },
 ];
 ---
 
@@ -83,13 +134,39 @@ const spaces = [
         <ul class="spaces">
           {spaces.map((s) => (
             <li class:list={{ heimat: s.heimat }}>
-              <a href={s.link} {...(s.heimat ? {} : { target: "_blank", rel: "noopener" })}>
+              <a href={`#space-${s.id}`}>
                 <strong>{s.name}</strong> <span>{s.ort}</span>
               </a>
             </li>
           ))}
         </ul>
       </article>
+    </div>
+  </section>
+
+  <!-- Vorstellung der einzelnen Spaces -->
+  <section class="abschnitt">
+    <div class="container">
+      <h2 class="cm-titel">Unsere Standorte</h2>
+      <div class="standorte">
+        {spaces.map((s) => (
+          <article class:list={["karte", "standort", { "standort--heimat": s.heimat }]} id={`space-${s.id}`}>
+            {s.bild && (
+              <div class="standort-bild">
+                <Image src={s.bild} alt={s.bildAlt ?? ""} widths={[480, 800]} sizes="(min-width: 880px) 560px, 100vw" />
+              </div>
+            )}
+            <div class="standort-text">
+              <p class="standort-ort">{s.ort}</p>
+              <h3>{s.name}</h3>
+              {s.absaetze.map((p) => <p>{p}</p>)}
+              <a class="knopf knopf--rahmen" href={s.link} {...(s.heimat ? {} : { target: "_blank", rel: "noopener" })}>
+                {s.heimat ? "Zu Coworking Eichsfeld" : `Zur Website von ${s.name} ↗`}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -308,6 +385,57 @@ const spaces = [
   }
   .spaces .heimat span {
     color: rgb(255 255 255 / 0.8);
+  }
+
+  .standorte {
+    display: grid;
+    gap: 24px;
+  }
+  @media (min-width: 880px) {
+    .standorte {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .standort {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    scroll-margin-top: 24px;
+  }
+  .standort-bild {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .standort-bild img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .standort-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: clamp(22px, 3vw, 32px);
+    border-top: 6px solid var(--cm-orange);
+  }
+  .standort-text .knopf {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  .standort-text p:last-of-type {
+    margin-bottom: 20px;
+  }
+  .standort-ort {
+    margin: 0 0 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cm-orange-dunkel);
+  }
+  .standort--heimat .standort-text {
+    border-top-color: var(--gruen);
   }
 
   .cm-gruen {
