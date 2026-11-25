@@ -9,7 +9,7 @@ import arnold from "../assets/partner/arnold-it.jpg";
 import uwe from "../assets/partner/uwe-schulze.jpg";
 import prosports from "../assets/partner/prosports.png";
 import hubs from "../assets/partner/innovationhubs.png";
-import cwl from "../assets/partner/coworkland.jpg";
+import cwl from "../assets/partner/coworkland.png";
 import prelim from "../assets/partner/prelim.png";
 import gcf from "../assets/partner/gcf.png";
 import cityapart from "../assets/partner/cityapart.jpg";
