@@ -1,7 +1,8 @@
 ---
 // Seite für das Netzwerk „CoworkMitte“, gestaltet nach dem Canva-Flyer „Folder CoWorkingMitte V2_NEU“.
 // Die Adresse steht auf dem Flyer; die alte WordPress-Adresse /cowork-mitte leitet hierher weiter.
-// Das Netzwerk hat eine eigene Website: www.coworkmitte.com.
+// Dieselbe Seite wird zusätzlich unter www.coworkmitte.com veröffentlicht (Repo coworking-eic/coworkmitte,
+// Bauvariante COWORKMITTE=1, siehe coworkmitte-dist.mjs). Dort zeigen Links auf coworking-eic.de absolut.
 import { Image } from "astro:assets";
 import Seite from "../layouts/Seite.astro";
 import heiligenstadt from "../assets/bilder/space-heiligenstadt.jpg";
@@ -19,6 +20,9 @@ import arbeitsplaetze from "../assets/bilder/arbeitsplaetze.jpg";
 import { url } from "../lib/url";
 
 const WEBSITE = "https://www.coworkmitte.com/";
+const eigeneDomain = process.env.COWORKMITTE === "1";
+// Links auf andere Seiten von coworking-eic.de: unter www.coworkmitte.com absolut, sonst relativ.
+const eic = (pfad: string) => (eigeneDomain ? new URL(pfad, "https://www.coworking-eic.de").href : url(pfad));
 const KONTAKT = {
   name: "Hans-Georg Gremler",
   mail: "hansgeorg@coworkmitte.com",
@@ -93,7 +97,7 @@ const spaces = [
     id: "eichsfeld",
     name: "Coworking Eichsfeld",
     ort: "Heiligenstadt & Leinefelde-Worbis",
-    link: url("/"),
+    link: eic("/"),
     heimat: true,
     bild: arbeitsplaetze,
     bildAlt: "Arbeitsplätze bei Coworking Eichsfeld",
@@ -104,7 +108,7 @@ const spaces = [
 ];
 ---
 
-<Seite titel="CoworkMitte" ohneKopfFuss beschreibung="CoworkMitte: fünf Spaces, ein Netzwerk, viele Möglichkeiten. Coworking für Unternehmen in Uslar, Northeim, Seesen, Lenglern und im Eichsfeld.">
+<Seite titel="CoworkMitte" ohneKopfFuss kanonisch={WEBSITE} beschreibung="CoworkMitte: fünf Spaces, ein Netzwerk, viele Möglichkeiten. Coworking für Unternehmen in Uslar, Northeim, Seesen, Lenglern und im Eichsfeld.">
   <!-- Titel wie auf der Rückseite des Flyers -->
   <section class="cm-kopf">
     <div class="container cm-kopf-raster">
@@ -112,7 +116,7 @@ const spaces = [
         <Image class="cm-logo" src={logo} alt="CoworkMitte – Fünf Spaces. Ein Netzwerk. Viele Möglichkeiten" widths={[400, 800]} sizes="400px" loading="eager" />
         <h1>Modern Work braucht Platz. Wir haben ihn. Fünfmal.</h1>
         <div class="knoepfe">
-          <a class="knopf cm-knopf" href={WEBSITE} target="_blank" rel="noopener">Zu coworkmitte.com ↗</a>
+          <a class="knopf cm-knopf" href="#standorte">Unsere Standorte</a>
           <a class="knopf knopf--rahmen" href="#kontakt">Kontakt aufnehmen</a>
         </div>
       </div>
@@ -152,7 +156,7 @@ const spaces = [
   </section>
 
   <!-- Vorstellung der einzelnen Spaces -->
-  <section class="abschnitt">
+  <section class="abschnitt" id="standorte">
     <div class="container">
       <h2 class="cm-titel">Unsere Standorte</h2>
       <div class="standorte">
@@ -228,10 +232,9 @@ const spaces = [
         <p class="kontakt-name">{KONTAKT.name}</p>
         <p><a href={`mailto:${KONTAKT.mail}`}>{KONTAKT.mail}</a></p>
         <p><a href={`tel:${KONTAKT.telefon.replace(/\s/g, "")}`}>{KONTAKT.telefon}</a></p>
-        <p><a href={WEBSITE} target="_blank" rel="noopener">www.coworkmitte.com</a></p>
+        <p><a href={WEBSITE}>www.coworkmitte.com</a></p>
         <div class="knoepfe">
           <a class="knopf cm-knopf" href={`mailto:${KONTAKT.mail}?subject=${encodeURIComponent("Anfrage CoworkMitte")}`}>E-Mail schreiben</a>
-          <a class="knopf knopf--rahmen" href={WEBSITE} target="_blank" rel="noopener">coworkmitte.com ↗</a>
         </div>
         <p class="partner-titel">Unsere Partner</p>
         <div class="partner">
@@ -248,8 +251,8 @@ const spaces = [
 
   <footer slot="fuss" class="cm-fuss">
     <div class="container">
-      <span>CoworkMitte · <a href={WEBSITE} target="_blank" rel="noopener">www.coworkmitte.com</a></span>
-      <span><a href={url("/impressum")}>Impressum</a> · <a href={url("/datenschutz")}>Datenschutz</a></span>
+      <span>CoworkMitte · <a href={WEBSITE}>www.coworkmitte.com</a></span>
+      <span><a href={eic("/impressum")}>Impressum</a> · <a href={eic("/datenschutz")}>Datenschutz</a></span>
     </div>
   </footer>
 </Seite>

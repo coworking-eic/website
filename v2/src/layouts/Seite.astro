@@ -9,12 +9,14 @@ interface Props {
   beschreibung?: string;
   /** Ohne Kopfzeile und Fußbereich von Coworking Eichsfeld, z. B. für die CoworkMitte-Seite. */
   ohneKopfFuss?: boolean;
+  /** Eigene kanonische Adresse, wenn die Seite auch unter einer anderen Domain erscheint. */
+  kanonisch?: string;
 }
-const { titel, ohneKopfFuss = false, beschreibung = "Coworking Eichsfeld e.V. – Coworking Spaces in Heiligenstadt und Leinefelde. vernetzen, inspirieren, gemeinsam arbeiten." } = Astro.props;
+const { titel, ohneKopfFuss = false, kanonisch, beschreibung = "Coworking Eichsfeld e.V. – Coworking Spaces in Heiligenstadt und Leinefelde. vernetzen, inspirieren, gemeinsam arbeiten." } = Astro.props;
 const voll = titel === "Startseite" ? "Coworking Eichsfeld – vernetzen, inspirieren, gemeinsam arbeiten" : `${titel} | Coworking Eichsfeld`;
 // In der Vorschau (GitHub Pages) setzt der Workflow NOINDEX=1, damit sie nicht bei Google landet.
 const noindex = process.env.NOINDEX === "1";
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const canonical = kanonisch ?? new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
