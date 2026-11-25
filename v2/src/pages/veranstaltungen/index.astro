@@ -3,6 +3,7 @@ import Seite from "../../layouts/Seite.astro";
 import Seitenkopf from "../../components/Seitenkopf.astro";
 import TerminKarte from "../../components/TerminKarte.astro";
 import Aufruf from "../../components/Aufruf.astro";
+import Kalender from "../../components/Kalender.astro";
 import { kommendeTermine, datum } from "../../lib/termine";
 import { mailto } from "../../data/site";
 
@@ -29,6 +30,7 @@ for (const x of termine) {
   <section class="abschnitt abschnitt--weiss">
     <div class="container">
       {termine.length === 0 && <p>Gerade sind keine Termine eingetragen. Schau bald wieder vorbei!</p>}
+      {termine.length > 0 && <Kalender termine={termine} />}
       {[...gruppen].map(([monat, liste]) => (
         <section class="monat">
           <h2>{monat}</h2>
