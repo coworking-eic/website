@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "build:coworkmitte": "COWORKMITTE=1 SITE=https://www.coworkmitte.com astro build && node coworkmitte-dist.mjs"
   },
   "dependencies": {
     "@fontsource/poppins": "^5.3.0",

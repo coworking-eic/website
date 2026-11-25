@@ -1,241 +1,512 @@
 ---
-// Seite für das Netzwerk „CoworkMitte“. Die Adresse steht auf dem Flyer und wird
-// auf www.coworking-eic.de/coworkmitte weitergeleitet. Texte von der alten WordPress-Seite.
+// Seite für das Netzwerk „CoworkMitte“, gestaltet nach dem Canva-Flyer „Folder CoWorkingMitte V2_NEU“.
+// Die Adresse steht auf dem Flyer; die alte WordPress-Adresse /cowork-mitte leitet hierher weiter.
+// Dieselbe Seite wird zusätzlich unter www.coworkmitte.com veröffentlicht (Repo coworking-eic/coworkmitte,
+// Bauvariante COWORKMITTE=1, siehe coworkmitte-dist.mjs). Dort zeigen Links auf coworking-eic.de absolut.
 import { Image } from "astro:assets";
 import Seite from "../layouts/Seite.astro";
-import Seitenkopf from "../components/Seitenkopf.astro";
-import { mailto } from "../data/site";
-import { url } from "../lib/url";
 import heiligenstadt from "../assets/bilder/space-heiligenstadt.jpg";
+import leinefelde from "../assets/bilder/leinefelde-aussen.jpg";
+import gcf from "../assets/partner/gcf.png";
+import coworkland from "../assets/partner/coworkland.jpg";
+import karte from "../assets/coworkmitte/karte.webp";
+import logo from "../assets/coworkmitte/logo.png";
+import uslar from "../assets/coworkmitte/uslar.webp";
+import lenglern from "../assets/coworkmitte/lenglern.jpg";
+import seesen from "../assets/coworkmitte/seesen.jpg";
+import northeim from "../assets/coworkmitte/northeim.jpg";
+import gremler from "../assets/coworkmitte/hans-georg-gremler.jpg";
+import arbeitsplaetze from "../assets/bilder/arbeitsplaetze.jpg";
+import { url } from "../lib/url";
 
+const WEBSITE = "https://www.coworkmitte.com/";
+const eigeneDomain = process.env.COWORKMITTE === "1";
+// Links auf andere Seiten von coworking-eic.de: unter www.coworkmitte.com absolut, sonst relativ.
+const eic = (pfad: string) => (eigeneDomain ? new URL(pfad, "https://www.coworking-eic.de").href : url(pfad));
+const KONTAKT = {
+  name: "Hans-Georg Gremler",
+  mail: "hansgeorg@coworkmitte.com",
+  telefon: "+49 177 8082165",
+};
+
+const vorteile = [
+  {
+    titel: "Moderne Ausstattung",
+    text: "In jedem unserer Spaces bieten wir top ausgestattete Arbeitsplätze mit High-Speed-Internet und Meetingräumen.",
+  },
+  {
+    titel: "Flexibles Arbeiten",
+    text: "Dein Unternehmen verdient mehr als einen Schreibtisch! Profitiere von fünf Standorten und nutze unser Netzwerk als mobiles Hauptquartier. Denn weniger Pendeln bedeutet mehr Performance.",
+  },
+  {
+    titel: "Mitarbeiterbindung",
+    text: "Arbeiten abseits von Homeoffice und Büro ist ein starkes Argument beim Wettbewerb um Fachkräfte und ermöglicht Deinen Mitarbeiter*innen eine ausgewogene Work-Life-Balance.",
+  },
+];
+
+// Die Vorstellung je Space; ein Foto kann über `bild` ergänzt werden.
 const spaces = [
   {
-    name: "LandErfolg Lenglern",
-    ort: "Lenglern bei Göttingen",
-    titel: "Coworking mitten im Dorf",
-    link: "https://landerfolg-lenglern.de/",
-    absaetze: [
-      "Der Coworking Space LandErfolg Lenglern bietet Raum zum kreativen Denken, konzentriertem Arbeiten und entspanntem Netzwerken.",
-      "Mitten in Lenglerns Landidylle ist Platz für modernes Arbeiten, kreative Meetings und erholsame Pausen unterm Kastanienbaum oder im Obstgarten.",
-      "Der Meetingraum im Erdgeschoss und die sechs Arbeitsplätze im Obergeschoss machen den Weg in die Stadt überflüssig. Ihr erreicht den Space mit Bahn und Bus, per Rad und Auto.",
-    ],
-  },
-  {
-    name: "FachWork Northeim",
-    ort: "Northeim",
-    titel: "Vernetzen – Planen – Bilden",
-    link: "https://pg-puche.de/fachwork-coworking-space/",
-    absaetze: [
-      "Der Coworking-Space FachWork Northeim bietet Menschen, die z. B. aus beruflichen Gründen pendeln, die nicht immer am selben Ort arbeiten möchten, die selbstständig oder freiberuflich tätig sind, die Möglichkeit für ein Arbeiten abseits ihres regulären Arbeitsortes.",
-      "Wer im Homeoffice arbeitet, kann durch die Arbeit im Coworking-Space eine Trennung zwischen Arbeit und Privatleben schaffen, Pendelnde können Fahrtwege einsparen und branchengleiche oder branchenfremde Arbeitnehmende können sich mit dem Team der planungsgruppe puche austauschen und vernetzen.",
-      "Ein angenehmes und gegenseitig inspirierendes Arbeitsklima für alle soll im FachWork unter dem Motto „Vernetzen – Planen – Bilden“ entstehen.",
-    ],
-  },
-  {
-    name: "NewKammer Seesen",
-    ort: "Seesen",
-    titel: "Ein kommunaler Workspace",
-    link: "https://www.stadtverwaltung-seesen.de/Wirtschaft/Gr%C3%BCndung-und-Coworking/",
-    absaetze: [
-      "Die NewKammer ist Seesens zentrale Anlaufstelle für innovatives Arbeiten im ländlichen Raum. Im Coworking Space gibt es moderne Büroarbeitsplätze, also Einzel- und Gruppenschreibtische, einen Besprechungsraum sowie Veranstaltungsflächen für Seminare und Workshops.",
-      "Angestellte, Selbstständige, Unternehmen und Startups finden hier einen Ort, an dem sie sich frei entfalten und individuelle wie gemeinschaftliche Projekte agil umsetzen können – auf einer flexiblen Plattform, auf der alle ihre Kompetenzen einbringen und von einem aktiven Netzwerk profitieren.",
-    ],
-  },
-  {
-    name: "anSTADTBUERO Uslar",
+    id: "uslar",
+    name: "anSTADTBUERO",
     ort: "Uslar",
-    titel: "Was gibt’s im anSTADTBUERO?",
     link: "https://stadtbue.ro/",
+    bild: uslar,
+    bildAlt: "Arbeitsplätze im anSTADTBUERO in Uslar mit großem Bildschirm an der Wand",
     absaetze: [
       "Ein Ort, der aus der Community entstanden ist. Im Vordergrund stehen die Menschen, die hier arbeiten wollen – als wohnortnahe Alternative zwischen Pendeln und Homeoffice oder als Arbeitsraum auf Reisen.",
-      "Eingebettet in die Uslarer Altstadt stehen höhenverstellbare Sitz-Steh-Schreibtische mit Monitoren bereit. Dazu kommen schnelles Internet, ein Besprechungsraum für bis zu 6 Personen, eine kleine Kaffee- und Teeküche sowie eine Sitzecke. Ein bisschen wie zu Hause …",
+      "Eingebettet in die Uslarer Altstadt stehen höhenverstellbare Sitz-Steh-Schreibtische mit Monitoren bereit. Dazu kommen schnelles Internet, ein Besprechungsraum für bis zu 6 Personen, eine kleine Kaffee- und Teeküche sowie eine Sitzecke.",
+    ],
+  },
+  {
+    id: "northeim",
+    name: "FachWork",
+    ort: "Northeim",
+    link: "https://pg-puche.de/fachwork-coworking-space/",
+    bild: northeim,
+    bildAlt: "Helle Arbeitsplätze mit Monitoren und Pflanzen im FachWork in Northeim",
+    absaetze: [
+      "Der Coworking Space FachWork bietet Pendelnden, Selbstständigen und allen, die nicht immer am selben Ort arbeiten möchten, einen Arbeitsplatz abseits des regulären Arbeitsortes.",
+      "Unter dem Motto „Vernetzen – Planen – Bilden“ entsteht ein inspirierendes Arbeitsklima, in dem man sich auch mit dem Team der planungsgruppe puche austauschen kann.",
+    ],
+  },
+  {
+    id: "seesen",
+    name: "NewKammer",
+    ort: "Seesen",
+    link: "https://www.stadtverwaltung-seesen.de/Wirtschaft/Gr%C3%BCndung-und-Coworking/",
+    bild: seesen,
+    bildAlt: "Besprechung im Meetingraum der NewKammer in Seesen",
+    absaetze: [
+      "Die NewKammer ist Seesens zentrale Anlaufstelle für innovatives Arbeiten im ländlichen Raum: moderne Einzel- und Gruppenschreibtische, ein Besprechungsraum sowie Veranstaltungsflächen für Seminare und Workshops.",
+    ],
+  },
+  {
+    id: "lenglern",
+    name: "LandErfolg",
+    ort: "Lenglern",
+    link: "https://landerfolg-lenglern.de/",
+    bild: lenglern,
+    bildAlt: "Fachwerkhaus von LandErfolg in Lenglern mit Terrasse, Hängesessel und Kastanienbaum",
+    absaetze: [
+      "Mitten in Lenglerns Landidylle ist Platz für modernes Arbeiten, kreative Meetings und erholsame Pausen unterm Kastanienbaum oder im Obstgarten.",
+      "Ein Meetingraum im Erdgeschoss und sechs Arbeitsplätze im Obergeschoss, erreichbar mit Bahn und Bus, per Rad und Auto.",
+    ],
+  },
+  {
+    id: "eichsfeld",
+    name: "Coworking Eichsfeld",
+    ort: "Heiligenstadt & Leinefelde-Worbis",
+    link: eic("/"),
+    heimat: true,
+    bild: arbeitsplaetze,
+    bildAlt: "Arbeitsplätze bei Coworking Eichsfeld",
+    absaetze: [
+      "Zwei Standorte in Heilbad Heiligenstadt und Leinefelde-Worbis: flexibel mietbare Plätze mit Highspeed-Internet, Drucker, Telefonbox, Gemeinschaftsküche und Besprechungsräumen.",
     ],
   },
 ];
 ---
 
-<Seite titel="CoworkMitte" beschreibung="CoworkMitte: fünf Coworking Spaces in Südniedersachsen und Nordthüringen – Lenglern, Northeim, Seesen, Uslar und das Eichsfeld.">
-  <Seitenkopf
-    kicker="CoworkMitte"
-    titel="Fünf Standorte – auch in deiner Nähe"
-    text="Entdecke die teilnehmenden Coworking Spaces zwischen Harz, Solling und Eichsfeld. Jeder Space ist eigenständig – hüpf einfach weiter zu dem, der zu dir passt."
-  >
-    <ul class="sprungmarken">
-      {spaces.map((s, i) => <li><a href={`#space-${i + 1}`}>{s.ort}</a></li>)}
-      <li><a href="#space-eichsfeld">Eichsfeld</a></li>
-    </ul>
-  </Seitenkopf>
+<Seite titel="CoworkMitte" ohneKopfFuss kanonisch={WEBSITE} beschreibung="CoworkMitte: fünf Spaces, ein Netzwerk, viele Möglichkeiten. Coworking für Unternehmen in Uslar, Northeim, Seesen, Lenglern und im Eichsfeld.">
+  <!-- Titel wie auf der Rückseite des Flyers -->
+  <section class="cm-kopf">
+    <div class="container cm-kopf-raster">
+      <div>
+        <Image class="cm-logo" src={logo} alt="CoworkMitte – Fünf Spaces. Ein Netzwerk. Viele Möglichkeiten" widths={[400, 800]} sizes="400px" loading="eager" />
+        <h1>Modern Work braucht Platz. Wir haben ihn. Fünfmal.</h1>
+        <div class="knoepfe">
+          <a class="knopf cm-knopf" href="#standorte">Unsere Standorte</a>
+          <a class="knopf knopf--rahmen" href="#kontakt">Kontakt aufnehmen</a>
+        </div>
+      </div>
+      <div class="bild-rund cm-kopf-bild">
+        <Image src={heiligenstadt} alt="Coworking Eichsfeld in Heiligenstadt" widths={[480, 800, 1200]} sizes="(min-width: 880px) 520px, 100vw" loading="eager" />
+      </div>
+    </div>
+  </section>
 
+  <!-- Über uns (orange) und Wer ist mit dabei? -->
   <section class="abschnitt abschnitt--weiss">
+    <div class="container zwei">
+      <article class="cm-orange karte">
+        <span class="cm-icon" aria-hidden="true">i</span>
+        <h2>Über uns</h2>
+        <p>
+          In der grünen Mitte des Landes bieten wir Dir als Unternehmer*in die perfekte Möglichkeit,
+          Mitarbeiterzufriedenheit und Kosteneinsparung mit nachhaltigem Bewusstsein zu verbinden. Fünf verschiedene
+          Standorte – das bedeutet fünfmal so viel Raum für Ideen, Austausch und produktives Arbeiten.
+        </p>
+      </article>
+
+      <article class="wer">
+        <h2>Wer ist mit dabei?</h2>
+        <p>High Five für Dein Unternehmen! Ermögliche Deinen Mitarbeiter*innen wohnortnahes Arbeiten an unseren Standorten.</p>
+        <ul class="spaces">
+          {spaces.map((s) => (
+            <li class:list={{ heimat: s.heimat }}>
+              <a href={`#space-${s.id}`}>
+                <strong>{s.name}</strong> <span>{s.ort}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Vorstellung der einzelnen Spaces -->
+  <section class="abschnitt" id="standorte">
     <div class="container">
-      <div class="spaces">
-        {spaces.map((s, i) => (
-          <article class="space karte" id={`space-${i + 1}`}>
-            <span class="nummer" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-            <p class="ort">{s.ort}</p>
-            <h2>{s.name}</h2>
-            <h3>{s.titel}</h3>
-            {s.absaetze.map((p) => <p>{p}</p>)}
-            <a class="knopf knopf--rahmen" href={s.link} target="_blank" rel="noopener">Zur Website von {s.name} ↗</a>
+      <h2 class="cm-titel">Unsere Standorte</h2>
+      <div class="standorte">
+        {spaces.map((s) => (
+          <article class:list={["karte", "standort", { "standort--heimat": s.heimat }]} id={`space-${s.id}`}>
+            {s.bild && (
+              <div class="standort-bild">
+                <Image src={s.bild} alt={s.bildAlt ?? ""} widths={[480, 800]} sizes="(min-width: 880px) 560px, 100vw" />
+              </div>
+            )}
+            <div class="standort-text">
+              <p class="standort-ort">{s.ort}</p>
+              <h3>{s.name}</h3>
+              {s.absaetze.map((p) => <p>{p}</p>)}
+              <a class="knopf knopf--rahmen" href={s.link} {...(s.heimat ? {} : { target: "_blank", rel: "noopener" })}>
+                {s.heimat ? "Zu Coworking Eichsfeld" : `Zur Website von ${s.name} ↗`}
+              </a>
+            </div>
           </article>
         ))}
-
-        <article class="space space--eichsfeld karte" id="space-eichsfeld">
-          <div class="bild-rund eichsfeld-bild">
-            <Image src={heiligenstadt} alt="Der Coworking Space in Heiligenstadt" widths={[600, 1000]} sizes="(min-width: 880px) 520px, 100vw" />
-          </div>
-          <div>
-            <span class="nummer" aria-hidden="true">05</span>
-            <p class="ort">Heilbad Heiligenstadt und Leinefelde-Worbis</p>
-            <h2>Coworking Eichsfeld</h2>
-            <h3>Willkommen im Eichsfeld</h3>
-            <p>
-              Coworking Eichsfeld wurde im Mai 2021 von Menschen gegründet, die sich nach einem inspirierenden und flexiblen Arbeitsort gesehnt haben und den Status quo im Eichsfeld verändern möchten. Ziel ist eine Kultur des Miteinanders, durch die die Potenziale der Region erschlossen und gestärkt werden.
-            </p>
-            <p>
-              An den beiden Standorten in Heilbad Heiligenstadt und Leinefelde-Worbis sind die Spaces eine Anlaufstelle für Digitalisierung, Neues Arbeiten und Innovation. Die Plätze lassen sich flexibel mieten und bieten mit Highspeed-Internet, Drucker, Telefonbox, Gemeinschaftsküche und Besprechungsräumen die perfekte Arbeitsatmosphäre.
-            </p>
-            <div class="knoepfe">
-              <a class="knopf" href={url("/heiligenstadt")}>Heiligenstadt</a>
-              <a class="knopf" href={url("/leinefelde")}>Leinefelde</a>
-              <a class="knopf knopf--rahmen" href={url("/")}>Zur Startseite</a>
-            </div>
-          </div>
-        </article>
       </div>
     </div>
   </section>
 
-  <section class="abschnitt">
-    <div class="container kopf--mitte frage">
-      <span class="kicker">Fragen zu CoworkMitte?</span>
-      <h2>Wir freuen uns über deine Nachricht!</h2>
-      <div class="knoepfe">
-        <a class="knopf knopf--akzent" href={mailto("Frage zu CoworkMitte")}>E-Mail schreiben</a>
+  <!-- Karte und Grüner Arbeiten -->
+  <section class="abschnitt cm-gruen">
+    <div class="container zwei mitte">
+      <div>
+        <span class="kicker">Nah dran statt weit pendeln</span>
+        <h2>Grüner Arbeiten</h2>
+        <p>
+          Auch die Umwelt profitiert von unserem nachhaltigen Büro-Netzwerk. Nah dran statt weit pendeln:
+          CO2 sparen durch Coworking! So kannst Du mit Deinem Unternehmen gesetzte Nachhaltigkeitsziele erreichen.
+        </p>
+        <div class="bild-rund cm-bild-klein">
+          <Image src={leinefelde} alt="Coworking Eichsfeld in Leinefelde" widths={[480, 800]} sizes="(min-width: 880px) 480px, 100vw" />
+        </div>
+      </div>
+      <figure class="karte cm-karte">
+        <Image src={karte} alt="Karte der fünf CoworkMitte-Standorte: Uslar, Northeim, Seesen, Lenglern und Heilbad Heiligenstadt mit Leinefelde-Worbis, verbunden über A 7, A 38 und Bundesstraßen" widths={[480, 800, 1200]} sizes="(min-width: 880px) 540px, 100vw" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- Deine Vorteile als Arbeitgeber*in (orange Spalte im Flyer) -->
+  <section class="abschnitt abschnitt--weiss">
+    <div class="container">
+      <h2 class="cm-titel">Deine Vorteile als Arbeitgeber*in</h2>
+      <div class="vorteile">
+        {vorteile.map((v) => (
+          <article class="karte vorteil">
+            <h3>{v.titel}</h3>
+            <p>{v.text}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
+
+  <!-- Noch Fragen? Melde Dich gerne! -->
+  <section class="abschnitt" id="kontakt">
+    <div class="container zwei mitte">
+      <div class="cm-orange karte">
+        <h2>Noch Fragen? Melde Dich gerne!</h2>
+        <p>
+          Ob Einzelbuchungen oder Flatrate-Modelle – zusammen finden wir die passende Lösung für Dein Unternehmen.
+          Dabei profitierst Du von unseren flexiblen Angeboten mit bewährten Prozessen, Technologien und
+          Arbeitsschutzstandards.
+        </p>
+      </div>
+      <div class="kontakt">
+        <Image class="kontakt-foto" src={gremler} alt={`Porträt von ${KONTAKT.name}`} width={120} height={120} densities={[1, 2]} />
+        <p class="kontakt-name">{KONTAKT.name}</p>
+        <p><a href={`mailto:${KONTAKT.mail}`}>{KONTAKT.mail}</a></p>
+        <p><a href={`tel:${KONTAKT.telefon.replace(/\s/g, "")}`}>{KONTAKT.telefon}</a></p>
+        <p><a href={WEBSITE}>www.coworkmitte.com</a></p>
+        <div class="knoepfe">
+          <a class="knopf cm-knopf" href={`mailto:${KONTAKT.mail}?subject=${encodeURIComponent("Anfrage CoworkMitte")}`}>E-Mail schreiben</a>
+        </div>
+        <p class="partner-titel">Unsere Partner</p>
+        <div class="partner">
+          <a href="https://www.coworking-germany.org/" target="_blank" rel="noopener">
+            <Image src={gcf} alt="German Coworking Federation" height={56} />
+          </a>
+          <a href="https://coworkland.de/de" target="_blank" rel="noopener">
+            <Image src={coworkland} alt="CoWorkLand" height={56} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer slot="fuss" class="cm-fuss">
+    <div class="container">
+      <span>CoworkMitte · <a href={WEBSITE}>www.coworkmitte.com</a></span>
+      <span><a href={eic("/impressum")}>Impressum</a> · <a href={eic("/datenschutz")}>Datenschutz</a></span>
+    </div>
+  </footer>
 </Seite>
 
 <style>
-  .sprungmarken {
-    list-style: none;
-    margin: 24px 0 0;
-    padding: 0;
+  /* Farben aus dem Flyer */
+  :root {
+    --cm-orange: #ea7a2c;
+    --cm-orange-dunkel: #c9601a;
+    --cm-gruen: #3c6e47;
+  }
+
+  .cm-kopf {
+    padding-block: clamp(40px, 7vw, 88px);
+    background: radial-gradient(circle at 90% 0%, var(--akzent-hell), transparent 55%), var(--hintergrund);
+  }
+  .cm-kopf-raster {
+    display: grid;
+    gap: clamp(28px, 5vw, 56px);
+    align-items: center;
+  }
+  .cm-kopf h1 {
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .cm-kopf-bild {
+    aspect-ratio: 4 / 3;
+    box-shadow: var(--schatten);
+  }
+  .cm-logo {
+    width: min(400px, 100%);
+    height: auto;
+    margin-bottom: clamp(20px, 3vw, 32px);
+  }
+
+  .knoepfe {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
+    margin-top: 24px;
   }
-  .sprungmarken a {
-    display: block;
-    padding: 6px 16px;
+  .cm-knopf {
+    background: var(--cm-orange);
+    border-color: var(--cm-orange);
+    color: #fff;
+  }
+  .cm-knopf:hover {
+    background: var(--cm-orange-dunkel);
+    border-color: var(--cm-orange-dunkel);
+    color: #fff;
+  }
+
+  .zwei {
+    display: grid;
+    gap: clamp(24px, 4vw, 48px);
+  }
+  @media (min-width: 880px) {
+    .cm-kopf-raster,
+    .zwei {
+      grid-template-columns: 1fr 1fr;
+    }
+    .mitte {
+      align-items: center;
+    }
+  }
+
+  .cm-orange {
+    position: relative;
+    background: var(--cm-orange);
+    color: #fff;
+    padding: clamp(24px, 4vw, 40px);
+  }
+  .cm-orange h2 {
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .cm-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 12px;
+    border: 3px solid #fff;
+    border-radius: 50% 50% 50% 8px;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.3rem;
+  }
+
+  .wer h2,
+  .cm-titel {
+    text-transform: uppercase;
+  }
+  .spaces {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .spaces a {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    padding: 12px 18px;
     border: 1px solid var(--linie);
-    border-radius: 999px;
+    border-radius: var(--radius-klein);
     background: var(--flaeche);
     text-decoration: none;
-    font-size: 0.92rem;
+    color: var(--text);
   }
-  .sprungmarken a:hover {
+  .spaces a:hover {
+    border-color: var(--cm-orange);
+  }
+  .spaces span {
+    color: var(--text-leise);
+  }
+  .spaces .heimat a {
     background: var(--gruen);
     border-color: var(--gruen);
     color: #fff;
   }
+  .spaces .heimat span {
+    color: rgb(255 255 255 / 0.8);
+  }
 
-  .spaces {
+  .standorte {
     display: grid;
     gap: 24px;
   }
   @media (min-width: 880px) {
-    .spaces {
+    .standorte {
       grid-template-columns: 1fr 1fr;
     }
   }
-  .space {
-    position: relative;
-    padding: clamp(24px, 4vw, 36px);
-    scroll-margin-top: 100px;
+  .standort {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    scroll-margin-top: 24px;
   }
-  .space .knopf {
+  .standort-bild {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .standort-bild img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .standort-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: clamp(22px, 3vw, 32px);
+    border-top: 6px solid var(--cm-orange);
+  }
+  .standort-text .knopf {
     margin-top: auto;
     align-self: flex-start;
   }
-  .space > p:last-of-type {
-    margin-bottom: 24px;
+  .standort-text p:last-of-type {
+    margin-bottom: 20px;
   }
-  .nummer {
-    position: absolute;
-    top: clamp(20px, 3vw, 30px);
-    right: clamp(24px, 4vw, 36px);
-    font-size: 2.4rem;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--gruen-hell);
-  }
-  .ort {
+  .standort-ort {
     margin: 0 0 4px;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--akzent);
+    color: var(--cm-orange-dunkel);
   }
-  .space h2 {
-    margin-bottom: 6px;
-    padding-right: 3.5rem;
-  }
-  .space h3 {
-    font-size: 1.1rem;
-    color: var(--text-leise);
-    font-weight: 500;
+  .standort--heimat .standort-text {
+    border-top-color: var(--gruen);
   }
 
-  .space--eichsfeld {
-    background: var(--gruen);
+  .cm-gruen {
+    background: var(--cm-gruen);
     color: #fff;
-    display: grid;
-    gap: 28px;
   }
-  @media (min-width: 880px) {
-    .space--eichsfeld {
-      grid-column: 1 / -1;
-      grid-template-columns: 1fr 1.15fr;
-      align-items: center;
+  .cm-gruen h2,
+  .cm-gruen .kicker {
+    color: #fff;
+  }
+  .cm-bild-klein {
+    aspect-ratio: 16 / 9;
+    margin-top: 24px;
+  }
+  .cm-karte {
+    margin: 0;
+    padding: 16px;
+    background: #fff;
+  }
+  .cm-karte img {
+    width: 100%;
+    height: auto;
+  }
+  .cm-fuss {
+    padding-block: 20px;
+    border-top: 1px solid var(--linie);
+    font-size: 0.9rem;
+    color: var(--text-leise);
+  }
+  .cm-fuss .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+  }
+
+  .vorteile {
+    display: grid;
+    gap: 20px;
+  }
+  @media (min-width: 760px) {
+    .vorteile {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
-  .space--eichsfeld > div {
-    position: relative;
-  }
-  .space--eichsfeld .nummer {
-    top: 0;
-    right: 0;
-    color: rgb(255 255 255 / 0.18);
-  }
-  .space--eichsfeld h2 {
-    color: #fff;
-  }
-  .space--eichsfeld h3 {
-    color: rgb(255 255 255 / 0.75);
-  }
-  .space--eichsfeld .knopf {
-    margin-top: 0;
-    background: #fff;
-    border-color: #fff;
-    color: var(--gruen);
-  }
-  .space--eichsfeld .knopf--rahmen {
-    background: transparent;
-    color: #fff;
-  }
-  .eichsfeld-bild {
-    aspect-ratio: 4 / 3;
+  .vorteil {
+    padding: clamp(22px, 3vw, 30px);
+    border-top: 6px solid var(--cm-orange);
   }
 
-  .frage {
-    text-align: center;
+  .kontakt-foto {
+    width: 112px;
+    height: 112px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    border: 4px solid var(--cm-orange);
+    object-fit: cover;
   }
-  .frage .knoepfe {
-    justify-content: center;
+  .kontakt p {
+    margin: 0 0 6px;
+  }
+  .kontakt-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gruen-dunkel);
+  }
+  .partner-titel {
+    margin-top: 32px !important;
+    font-weight: 600;
+  }
+  .partner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  .partner img {
+    height: 56px;
+    width: auto;
   }
 </style>
