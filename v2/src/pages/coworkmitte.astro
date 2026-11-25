@@ -8,6 +8,8 @@ import heiligenstadt from "../assets/bilder/space-heiligenstadt.jpg";
 import leinefelde from "../assets/bilder/leinefelde-aussen.jpg";
 import gcf from "../assets/partner/gcf.png";
 import coworkland from "../assets/partner/coworkland.jpg";
+import karte from "../assets/coworkmitte/karte.webp";
+import { url } from "../lib/url";
 
 const WEBSITE = "https://www.coworkmitte.com/";
 const KONTAKT = {
@@ -31,17 +33,16 @@ const vorteile = [
   },
 ];
 
-// x/y: Lage auf der schematischen Karte (viewBox 400 × 340).
 const spaces = [
-  { name: "anSTADTBUERO", ort: "Uslar", link: "https://stadtbue.ro/", x: 70, y: 105 },
-  { name: "FachWork", ort: "Northeim", link: "https://pg-puche.de/fachwork-coworking-space/", x: 205, y: 120 },
-  { name: "NewKammer", ort: "Seesen", link: "https://www.stadtverwaltung-seesen.de/Wirtschaft/Gr%C3%BCndung-und-Coworking/", x: 300, y: 40 },
-  { name: "LandErfolg", ort: "Lenglern", link: "https://landerfolg-lenglern.de/", x: 150, y: 200 },
-  { name: "Coworking Eichsfeld", ort: "Heiligenstadt & Leinefelde-Worbis", link: "/", x: 265, y: 290, heimat: true },
+  { name: "anSTADTBUERO", ort: "Uslar", link: "https://stadtbue.ro/" },
+  { name: "FachWork", ort: "Northeim", link: "https://pg-puche.de/fachwork-coworking-space/" },
+  { name: "NewKammer", ort: "Seesen", link: "https://www.stadtverwaltung-seesen.de/Wirtschaft/Gr%C3%BCndung-und-Coworking/" },
+  { name: "LandErfolg", ort: "Lenglern", link: "https://landerfolg-lenglern.de/" },
+  { name: "Coworking Eichsfeld", ort: "Heiligenstadt & Leinefelde-Worbis", link: "/", heimat: true },
 ];
 ---
 
-<Seite titel="CoworkMitte" beschreibung="CoworkMitte: fünf Spaces, ein Netzwerk, viele Möglichkeiten. Coworking für Unternehmen in Uslar, Northeim, Seesen, Lenglern und im Eichsfeld.">
+<Seite titel="CoworkMitte" ohneKopfFuss beschreibung="CoworkMitte: fünf Spaces, ein Netzwerk, viele Möglichkeiten. Coworking für Unternehmen in Uslar, Northeim, Seesen, Lenglern und im Eichsfeld.">
   <!-- Titel wie auf der Rückseite des Flyers -->
   <section class="cm-kopf">
     <div class="container cm-kopf-raster">
@@ -107,19 +108,7 @@ const spaces = [
         </div>
       </div>
       <figure class="karte cm-karte">
-        <svg viewBox="0 0 400 340" role="img" aria-labelledby="karte-titel">
-          <title id="karte-titel">Schematische Karte der fünf CoworkMitte-Standorte</title>
-          <path class="strasse" d="M30 230 C120 210 170 170 205 120 S290 60 380 30" />
-          <path class="strasse" d="M205 120 C200 170 175 200 150 200 S180 300 265 290" />
-          <path class="strasse" d="M70 105 C120 110 160 125 205 120" />
-          <path class="strasse" d="M265 290 C310 280 350 270 390 250" />
-          {spaces.map((s) => (
-            <g class:list={["ort", { heimat: s.heimat }]} transform={`translate(${s.x} ${s.y})`}>
-              <circle r={s.heimat ? 13 : 10} />
-              <text y={s.heimat ? -20 : -16} text-anchor="middle">{s.heimat ? "Eichsfeld" : s.ort}</text>
-            </g>
-          ))}
-        </svg>
+        <Image src={karte} alt="Karte der fünf CoworkMitte-Standorte: Uslar, Northeim, Seesen, Lenglern und Heilbad Heiligenstadt mit Leinefelde-Worbis, verbunden über A 7, A 38 und Bundesstraßen" widths={[480, 800, 1200]} sizes="(min-width: 880px) 540px, 100vw" />
       </figure>
     </div>
   </section>
@@ -171,6 +160,13 @@ const spaces = [
       </div>
     </div>
   </section>
+
+  <footer slot="fuss" class="cm-fuss">
+    <div class="container">
+      <span>CoworkMitte · <a href={WEBSITE} target="_blank" rel="noopener">www.coworkmitte.com</a></span>
+      <span><a href={url("/impressum")}>Impressum</a> · <a href={url("/datenschutz")}>Datenschutz</a></span>
+    </div>
+  </footer>
 </Seite>
 
 <style>
@@ -331,28 +327,21 @@ const spaces = [
     padding: 16px;
     background: #fff;
   }
-  .cm-karte svg {
+  .cm-karte img {
     width: 100%;
     height: auto;
-    display: block;
   }
-  .strasse {
-    fill: none;
-    stroke: #c9d4d1;
-    stroke-width: 6;
-    stroke-linecap: round;
+  .cm-fuss {
+    padding-block: 20px;
+    border-top: 1px solid var(--linie);
+    font-size: 0.9rem;
+    color: var(--text-leise);
   }
-  .ort circle {
-    fill: var(--cm-orange);
-    stroke: #fff;
-    stroke-width: 3;
-  }
-  .ort.heimat circle {
-    fill: var(--gruen);
-  }
-  .ort text {
-    font: 600 15px "Poppins", sans-serif;
-    fill: var(--text);
+  .cm-fuss .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
   }
 
   .vorteile {

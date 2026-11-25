@@ -7,8 +7,10 @@ import { url } from "../lib/url";
 interface Props {
   titel: string;
   beschreibung?: string;
+  /** Ohne Kopfzeile und Fußbereich von Coworking Eichsfeld, z. B. für die CoworkMitte-Seite. */
+  ohneKopfFuss?: boolean;
 }
-const { titel, beschreibung = "Coworking Eichsfeld e.V. – Coworking Spaces in Heiligenstadt und Leinefelde. vernetzen, inspirieren, gemeinsam arbeiten." } = Astro.props;
+const { titel, ohneKopfFuss = false, beschreibung = "Coworking Eichsfeld e.V. – Coworking Spaces in Heiligenstadt und Leinefelde. vernetzen, inspirieren, gemeinsam arbeiten." } = Astro.props;
 const voll = titel === "Startseite" ? "Coworking Eichsfeld – vernetzen, inspirieren, gemeinsam arbeiten" : `${titel} | Coworking Eichsfeld`;
 // In der Vorschau (GitHub Pages) setzt der Workflow NOINDEX=1, damit sie nicht bei Google landet.
 const noindex = process.env.NOINDEX === "1";
@@ -34,11 +36,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a class="sr-only sprung" href="#inhalt">Zum Inhalt springen</a>
-    <Kopf />
+    {!ohneKopfFuss && <Kopf />}
     <main id="inhalt">
       <slot />
     </main>
-    <Fuss />
+    {ohneKopfFuss ? <slot name="fuss" /> : <Fuss />}
   </body>
 </html>
 
