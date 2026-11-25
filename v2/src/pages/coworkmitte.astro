@@ -224,7 +224,7 @@ const spaces = [
         </p>
       </div>
       <div class="kontakt">
-        <Image class="kontakt-foto" src={gremler} alt={`Porträt von ${KONTAKT.name}`} width={160} height={160} densities={[1, 2]} />
+        <Image class="kontakt-foto" src={gremler} alt={`Porträt von ${KONTAKT.name}`} width={120} height={120} densities={[1, 2]} />
         <p class="kontakt-name">{KONTAKT.name}</p>
         <p><a href={`mailto:${KONTAKT.mail}`}>{KONTAKT.mail}</a></p>
         <p><a href={`tel:${KONTAKT.telefon.replace(/\s/g, "")}`}>{KONTAKT.telefon}</a></p>
@@ -477,11 +477,11 @@ const spaces = [
   }
 
   .kontakt-foto {
-    width: 140px;
-    height: 140px;
-    margin-bottom: 16px;
+    width: 112px;
+    height: 112px;
+    margin-bottom: 14px;
     border-radius: 50%;
-    border: 5px solid var(--cm-orange);
+    border: 4px solid var(--cm-orange);
     object-fit: cover;
   }
   .kontakt p {
