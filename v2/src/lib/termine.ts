@@ -42,11 +42,20 @@ export async function kommendeTermine() {
 
 const kompakt = (iso: string, hhmm: string) => iso.replace(/-/g, "") + "T" + hhmm.replace(":", "").padStart(4, "0") + "00";
 
+/** Ende eines Termins; liegt "bis" vor "von" (z. B. 20:00–0:00), endet er am Folgetag. */
+function ende(t: Termin) {
+  if (!t.bis) return kompakt(t.datum, t.von);
+  if (t.bis.padStart(5, "0") > t.von.padStart(5, "0")) return kompakt(t.datum, t.bis);
+  const [y, m, d] = t.datum.split("-").map(Number);
+  const folgetag = new Date(Date.UTC(y, m - 1, d + 1)).toISOString().slice(0, 10);
+  return kompakt(folgetag, t.bis);
+}
+
 export function googleKalender(v: Veranstaltung, t: Termin, seite: string) {
   const p = new URLSearchParams({
     action: "TEMPLATE",
     text: v.data.titel,
-    dates: `${kompakt(t.datum, t.von)}/${kompakt(t.datum, t.bis ?? t.von)}`,
+    dates: `${kompakt(t.datum, t.von)}/${ende(t)}`,
     ctz: "Europe/Berlin",
     details: seite,
   });
@@ -71,7 +80,7 @@ export function ics(v: Veranstaltung, seite: string) {
       `UID:${v.id}-${t.datum}@coworking-eic.de`,
       `DTSTAMP:${stamp}`,
       `DTSTART;TZID=Europe/Berlin:${kompakt(t.datum, t.von)}`,
-      `DTEND;TZID=Europe/Berlin:${kompakt(t.datum, t.bis ?? t.von)}`,
+      `DTEND;TZID=Europe/Berlin:${ende(t)}`,
       `SUMMARY:${icsText(v.data.titel)}`,
       `DESCRIPTION:${icsText(v.data.kurz + "\n" + seite)}`,
       `LOCATION:${icsText([v.data.ort, v.data.adresse].filter(Boolean).join(", "))}`,
