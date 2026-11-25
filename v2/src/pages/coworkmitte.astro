@@ -14,6 +14,7 @@ import uslar from "../assets/coworkmitte/uslar.webp";
 import lenglern from "../assets/coworkmitte/lenglern.jpg";
 import seesen from "../assets/coworkmitte/seesen.jpg";
 import northeim from "../assets/coworkmitte/northeim.jpg";
+import gremler from "../assets/coworkmitte/hans-georg-gremler.jpg";
 import arbeitsplaetze from "../assets/bilder/arbeitsplaetze.jpg";
 import { url } from "../lib/url";
 
@@ -223,6 +224,7 @@ const spaces = [
         </p>
       </div>
       <div class="kontakt">
+        <Image class="kontakt-foto" src={gremler} alt={`Porträt von ${KONTAKT.name}`} width={160} height={160} densities={[1, 2]} />
         <p class="kontakt-name">{KONTAKT.name}</p>
         <p><a href={`mailto:${KONTAKT.mail}`}>{KONTAKT.mail}</a></p>
         <p><a href={`tel:${KONTAKT.telefon.replace(/\s/g, "")}`}>{KONTAKT.telefon}</a></p>
@@ -474,6 +476,14 @@ const spaces = [
     border-top: 6px solid var(--cm-orange);
   }
 
+  .kontakt-foto {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    border: 5px solid var(--cm-orange);
+    object-fit: cover;
+  }
   .kontakt p {
     margin: 0 0 6px;
   }
