@@ -1,8 +1,8 @@
 ---
 titel: Heiligenstadt4Comedy 2027
 kurz: "Comedy-Abend mit Sara Karas, Benni Stark, Nele Matthew und Tobi Freudenthal – Save the Date!"
-bild: ../../assets/veranstaltungen/heiligenstadt4comedy.png
-bildAlt: "Heiligenstadt4Comedy 2027 mit Sara Karas, Benni Stark, Nele Matthew und Tobi Freudenthal am 9. April 2027 um 20 Uhr"
+bild: ../../assets/veranstaltungen/heiligenstadt4comedy.jpg
+bildAlt: "Plakat Heiligenstadt4Comedy – vier Comedians, vier Bühnen: Sara Karas, Tobi Freudenthal, Benni Stark und Nele Matthew"
 adresse: Windische Gasse 11A, 37308 Heilbad Heiligenstadt
 termine:
   - { datum: "2027-04-09", von: "20:00" }
