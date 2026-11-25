@@ -9,6 +9,7 @@ import leinefelde from "../assets/bilder/leinefelde-aussen.jpg";
 import gcf from "../assets/partner/gcf.png";
 import coworkland from "../assets/partner/coworkland.jpg";
 import karte from "../assets/coworkmitte/karte.webp";
+import logo from "../assets/coworkmitte/logo.png";
 import uslar from "../assets/coworkmitte/uslar.webp";
 import arbeitsplaetze from "../assets/bilder/arbeitsplaetze.jpg";
 import { url } from "../lib/url";
@@ -98,12 +99,8 @@ const spaces = [
   <section class="cm-kopf">
     <div class="container cm-kopf-raster">
       <div>
-        <p class="cm-marke">
-          <span class="cm-punkte" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-          CoworkMitte
-        </p>
+        <Image class="cm-logo" src={logo} alt="CoworkMitte – Fünf Spaces. Ein Netzwerk. Viele Möglichkeiten" widths={[400, 800]} sizes="400px" loading="eager" />
         <h1>Modern Work braucht Platz. Wir haben ihn. Fünfmal.</h1>
-        <p class="lead">Fünf Spaces. Ein Netzwerk. Viele Möglichkeiten.</p>
         <div class="knoepfe">
           <a class="knopf cm-knopf" href={WEBSITE} target="_blank" rel="noopener">Zu coworkmitte.com ↗</a>
           <a class="knopf knopf--rahmen" href="#kontakt">Kontakt aufnehmen</a>
@@ -271,28 +268,10 @@ const spaces = [
     aspect-ratio: 4 / 3;
     box-shadow: var(--schatten);
   }
-  .cm-marke {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 16px;
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .cm-punkte {
-    display: grid;
-    grid-template-columns: repeat(3, 8px);
-    gap: 3px;
-  }
-  .cm-punkte i {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--cm-orange);
-  }
-  .cm-punkte i:nth-child(2n) {
-    background: var(--cm-gruen);
+  .cm-logo {
+    width: min(400px, 100%);
+    height: auto;
+    margin-bottom: clamp(20px, 3vw, 32px);
   }
 
   .knoepfe {
