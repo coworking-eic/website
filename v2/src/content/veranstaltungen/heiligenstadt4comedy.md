@@ -5,7 +5,7 @@ bild: ../../assets/veranstaltungen/heiligenstadt4comedy.jpg
 bildAlt: "Plakat Heiligenstadt4Comedy – vier Comedians, vier Bühnen: Sara Karas, Tobi Freudenthal, Benni Stark und Nele Matthew"
 adresse: Windische Gasse 11A, 37308 Heilbad Heiligenstadt
 termine:
-  - { datum: "2027-04-09", von: "20:00" }
+  - { datum: "2027-04-09", von: "20:00", bis: "0:00" }
 ---
 
 **Save the Dates!**
