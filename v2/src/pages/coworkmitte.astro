@@ -8,7 +8,7 @@ import Seite from "../layouts/Seite.astro";
 import heiligenstadt from "../assets/bilder/space-heiligenstadt.jpg";
 import leinefelde from "../assets/bilder/leinefelde-aussen.jpg";
 import gcf from "../assets/partner/gcf.png";
-import coworkland from "../assets/partner/coworkland.jpg";
+import coworkland from "../assets/partner/coworkland.png";
 import karte from "../assets/coworkmitte/karte.webp";
 import logo from "../assets/coworkmitte/logo.png";
 import uslar from "../assets/coworkmitte/uslar.webp";
@@ -239,10 +239,10 @@ const spaces = [
         <p class="partner-titel">Unsere Partner</p>
         <div class="partner">
           <a href="https://www.coworking-germany.org/" target="_blank" rel="noopener">
-            <Image src={gcf} alt="German Coworking Federation" height={56} />
+            <Image src={gcf} alt="German Coworking Federation" height={56} densities={[1, 2]} />
           </a>
           <a href="https://coworkland.de/de" target="_blank" rel="noopener">
-            <Image src={coworkland} alt="CoWorkLand" height={56} />
+            <Image class="logo-breit" src={coworkland} alt="CoWorkLand" height={34} densities={[1, 2]} />
           </a>
         </div>
       </div>
@@ -508,5 +508,8 @@ const spaces = [
   .partner img {
     height: 56px;
     width: auto;
+  }
+  .partner .logo-breit {
+    height: 34px;
   }
 </style>
