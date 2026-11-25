@@ -1,0 +1,394 @@
+---
+// Seite für das Netzwerk „CoworkMitte“, gestaltet nach dem Canva-Flyer „Folder CoWorkingMitte V2_NEU“.
+// Die Adresse steht auf dem Flyer; die alte WordPress-Adresse /cowork-mitte leitet hierher weiter.
+// Das Netzwerk hat eine eigene Website: www.coworkmitte.com.
+import { Image } from "astro:assets";
+import Seite from "../layouts/Seite.astro";
+import heiligenstadt from "../assets/bilder/space-heiligenstadt.jpg";
+import leinefelde from "../assets/bilder/leinefelde-aussen.jpg";
+import gcf from "../assets/partner/gcf.png";
+import coworkland from "../assets/partner/coworkland.jpg";
+
+const WEBSITE = "https://www.coworkmitte.com/";
+const KONTAKT = {
+  name: "Hans-Georg Gremler",
+  mail: "hansgeorg@coworkmitte.com",
+  telefon: "+49 177 8082165",
+};
+
+const vorteile = [
+  {
+    titel: "Moderne Ausstattung",
+    text: "In jedem unserer Spaces bieten wir top ausgestattete Arbeitsplätze mit High-Speed-Internet und Meetingräumen.",
+  },
+  {
+    titel: "Flexibles Arbeiten",
+    text: "Dein Unternehmen verdient mehr als einen Schreibtisch! Profitiere von fünf Standorten und nutze unser Netzwerk als mobiles Hauptquartier. Denn weniger Pendeln bedeutet mehr Performance.",
+  },
+  {
+    titel: "Mitarbeiterbindung",
+    text: "Arbeiten abseits von Homeoffice und Büro ist ein starkes Argument beim Wettbewerb um Fachkräfte und ermöglicht Deinen Mitarbeiter*innen eine ausgewogene Work-Life-Balance.",
+  },
+];
+
+// x/y: Lage auf der schematischen Karte (viewBox 400 × 340).
+const spaces = [
+  { name: "anSTADTBUERO", ort: "Uslar", link: "https://stadtbue.ro/", x: 70, y: 105 },
+  { name: "FachWork", ort: "Northeim", link: "https://pg-puche.de/fachwork-coworking-space/", x: 205, y: 120 },
+  { name: "NewKammer", ort: "Seesen", link: "https://www.stadtverwaltung-seesen.de/Wirtschaft/Gr%C3%BCndung-und-Coworking/", x: 300, y: 40 },
+  { name: "LandErfolg", ort: "Lenglern", link: "https://landerfolg-lenglern.de/", x: 150, y: 200 },
+  { name: "Coworking Eichsfeld", ort: "Heiligenstadt & Leinefelde-Worbis", link: "/", x: 265, y: 290, heimat: true },
+];
+---
+
+<Seite titel="CoworkMitte" beschreibung="CoworkMitte: fünf Spaces, ein Netzwerk, viele Möglichkeiten. Coworking für Unternehmen in Uslar, Northeim, Seesen, Lenglern und im Eichsfeld.">
+  <!-- Titel wie auf der Rückseite des Flyers -->
+  <section class="cm-kopf">
+    <div class="container cm-kopf-raster">
+      <div>
+        <p class="cm-marke">
+          <span class="cm-punkte" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          CoworkMitte
+        </p>
+        <h1>Modern Work braucht Platz. Wir haben ihn. Fünfmal.</h1>
+        <p class="lead">Fünf Spaces. Ein Netzwerk. Viele Möglichkeiten.</p>
+        <div class="knoepfe">
+          <a class="knopf cm-knopf" href={WEBSITE} target="_blank" rel="noopener">Zu coworkmitte.com ↗</a>
+          <a class="knopf knopf--rahmen" href="#kontakt">Kontakt aufnehmen</a>
+        </div>
+      </div>
+      <div class="bild-rund cm-kopf-bild">
+        <Image src={heiligenstadt} alt="Coworking Eichsfeld in Heiligenstadt" widths={[480, 800, 1200]} sizes="(min-width: 880px) 520px, 100vw" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Über uns (orange) und Wer ist mit dabei? -->
+  <section class="abschnitt abschnitt--weiss">
+    <div class="container zwei">
+      <article class="cm-orange karte">
+        <span class="cm-icon" aria-hidden="true">i</span>
+        <h2>Über uns</h2>
+        <p>
+          In der grünen Mitte des Landes bieten wir Dir als Unternehmer*in die perfekte Möglichkeit,
+          Mitarbeiterzufriedenheit und Kosteneinsparung mit nachhaltigem Bewusstsein zu verbinden. Fünf verschiedene
+          Standorte – das bedeutet fünfmal so viel Raum für Ideen, Austausch und produktives Arbeiten.
+        </p>
+      </article>
+
+      <article class="wer">
+        <h2>Wer ist mit dabei?</h2>
+        <p>High Five für Dein Unternehmen! Ermögliche Deinen Mitarbeiter*innen wohnortnahes Arbeiten an unseren Standorten.</p>
+        <ul class="spaces">
+          {spaces.map((s) => (
+            <li class:list={{ heimat: s.heimat }}>
+              <a href={s.link} {...(s.heimat ? {} : { target: "_blank", rel: "noopener" })}>
+                <strong>{s.name}</strong> <span>{s.ort}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Karte und Grüner Arbeiten -->
+  <section class="abschnitt cm-gruen">
+    <div class="container zwei mitte">
+      <div>
+        <span class="kicker">Nah dran statt weit pendeln</span>
+        <h2>Grüner Arbeiten</h2>
+        <p>
+          Auch die Umwelt profitiert von unserem nachhaltigen Büro-Netzwerk. Nah dran statt weit pendeln:
+          CO2 sparen durch Coworking! So kannst Du mit Deinem Unternehmen gesetzte Nachhaltigkeitsziele erreichen.
+        </p>
+        <div class="bild-rund cm-bild-klein">
+          <Image src={leinefelde} alt="Coworking Eichsfeld in Leinefelde" widths={[480, 800]} sizes="(min-width: 880px) 480px, 100vw" />
+        </div>
+      </div>
+      <figure class="karte cm-karte">
+        <svg viewBox="0 0 400 340" role="img" aria-labelledby="karte-titel">
+          <title id="karte-titel">Schematische Karte der fünf CoworkMitte-Standorte</title>
+          <path class="strasse" d="M30 230 C120 210 170 170 205 120 S290 60 380 30" />
+          <path class="strasse" d="M205 120 C200 170 175 200 150 200 S180 300 265 290" />
+          <path class="strasse" d="M70 105 C120 110 160 125 205 120" />
+          <path class="strasse" d="M265 290 C310 280 350 270 390 250" />
+          {spaces.map((s) => (
+            <g class:list={["ort", { heimat: s.heimat }]} transform={`translate(${s.x} ${s.y})`}>
+              <circle r={s.heimat ? 13 : 10} />
+              <text y={s.heimat ? -20 : -16} text-anchor="middle">{s.heimat ? "Eichsfeld" : s.ort}</text>
+            </g>
+          ))}
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Deine Vorteile als Arbeitgeber*in (orange Spalte im Flyer) -->
+  <section class="abschnitt abschnitt--weiss">
+    <div class="container">
+      <h2 class="cm-titel">Deine Vorteile als Arbeitgeber*in</h2>
+      <div class="vorteile">
+        {vorteile.map((v) => (
+          <article class="karte vorteil">
+            <h3>{v.titel}</h3>
+            <p>{v.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Noch Fragen? Melde Dich gerne! -->
+  <section class="abschnitt" id="kontakt">
+    <div class="container zwei mitte">
+      <div class="cm-orange karte">
+        <h2>Noch Fragen? Melde Dich gerne!</h2>
+        <p>
+          Ob Einzelbuchungen oder Flatrate-Modelle – zusammen finden wir die passende Lösung für Dein Unternehmen.
+          Dabei profitierst Du von unseren flexiblen Angeboten mit bewährten Prozessen, Technologien und
+          Arbeitsschutzstandards.
+        </p>
+      </div>
+      <div class="kontakt">
+        <p class="kontakt-name">{KONTAKT.name}</p>
+        <p><a href={`mailto:${KONTAKT.mail}`}>{KONTAKT.mail}</a></p>
+        <p><a href={`tel:${KONTAKT.telefon.replace(/\s/g, "")}`}>{KONTAKT.telefon}</a></p>
+        <p><a href={WEBSITE} target="_blank" rel="noopener">www.coworkmitte.com</a></p>
+        <div class="knoepfe">
+          <a class="knopf cm-knopf" href={`mailto:${KONTAKT.mail}?subject=${encodeURIComponent("Anfrage CoworkMitte")}`}>E-Mail schreiben</a>
+          <a class="knopf knopf--rahmen" href={WEBSITE} target="_blank" rel="noopener">coworkmitte.com ↗</a>
+        </div>
+        <p class="partner-titel">Unsere Partner</p>
+        <div class="partner">
+          <a href="https://www.coworking-germany.org/" target="_blank" rel="noopener">
+            <Image src={gcf} alt="German Coworking Federation" height={56} />
+          </a>
+          <a href="https://coworkland.de/de" target="_blank" rel="noopener">
+            <Image src={coworkland} alt="CoWorkLand" height={56} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Seite>
+
+<style>
+  /* Farben aus dem Flyer */
+  :root {
+    --cm-orange: #ea7a2c;
+    --cm-orange-dunkel: #c9601a;
+    --cm-gruen: #3c6e47;
+  }
+
+  .cm-kopf {
+    padding-block: clamp(40px, 7vw, 88px);
+    background: radial-gradient(circle at 90% 0%, var(--akzent-hell), transparent 55%), var(--hintergrund);
+  }
+  .cm-kopf-raster {
+    display: grid;
+    gap: clamp(28px, 5vw, 56px);
+    align-items: center;
+  }
+  .cm-kopf h1 {
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .cm-kopf-bild {
+    aspect-ratio: 4 / 3;
+    box-shadow: var(--schatten);
+  }
+  .cm-marke {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 16px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .cm-punkte {
+    display: grid;
+    grid-template-columns: repeat(3, 8px);
+    gap: 3px;
+  }
+  .cm-punkte i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cm-orange);
+  }
+  .cm-punkte i:nth-child(2n) {
+    background: var(--cm-gruen);
+  }
+
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .cm-knopf {
+    background: var(--cm-orange);
+    border-color: var(--cm-orange);
+    color: #fff;
+  }
+  .cm-knopf:hover {
+    background: var(--cm-orange-dunkel);
+    border-color: var(--cm-orange-dunkel);
+    color: #fff;
+  }
+
+  .zwei {
+    display: grid;
+    gap: clamp(24px, 4vw, 48px);
+  }
+  @media (min-width: 880px) {
+    .cm-kopf-raster,
+    .zwei {
+      grid-template-columns: 1fr 1fr;
+    }
+    .mitte {
+      align-items: center;
+    }
+  }
+
+  .cm-orange {
+    position: relative;
+    background: var(--cm-orange);
+    color: #fff;
+    padding: clamp(24px, 4vw, 40px);
+  }
+  .cm-orange h2 {
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .cm-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 12px;
+    border: 3px solid #fff;
+    border-radius: 50% 50% 50% 8px;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.3rem;
+  }
+
+  .wer h2,
+  .cm-titel {
+    text-transform: uppercase;
+  }
+  .spaces {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .spaces a {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    padding: 12px 18px;
+    border: 1px solid var(--linie);
+    border-radius: var(--radius-klein);
+    background: var(--flaeche);
+    text-decoration: none;
+    color: var(--text);
+  }
+  .spaces a:hover {
+    border-color: var(--cm-orange);
+  }
+  .spaces span {
+    color: var(--text-leise);
+  }
+  .spaces .heimat a {
+    background: var(--gruen);
+    border-color: var(--gruen);
+    color: #fff;
+  }
+  .spaces .heimat span {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .cm-gruen {
+    background: var(--cm-gruen);
+    color: #fff;
+  }
+  .cm-gruen h2,
+  .cm-gruen .kicker {
+    color: #fff;
+  }
+  .cm-bild-klein {
+    aspect-ratio: 16 / 9;
+    margin-top: 24px;
+  }
+  .cm-karte {
+    margin: 0;
+    padding: 16px;
+    background: #fff;
+  }
+  .cm-karte svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .strasse {
+    fill: none;
+    stroke: #c9d4d1;
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+  .ort circle {
+    fill: var(--cm-orange);
+    stroke: #fff;
+    stroke-width: 3;
+  }
+  .ort.heimat circle {
+    fill: var(--gruen);
+  }
+  .ort text {
+    font: 600 15px "Poppins", sans-serif;
+    fill: var(--text);
+  }
+
+  .vorteile {
+    display: grid;
+    gap: 20px;
+  }
+  @media (min-width: 760px) {
+    .vorteile {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .vorteil {
+    padding: clamp(22px, 3vw, 30px);
+    border-top: 6px solid var(--cm-orange);
+  }
+
+  .kontakt p {
+    margin: 0 0 6px;
+  }
+  .kontakt-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gruen-dunkel);
+  }
+  .partner-titel {
+    margin-top: 32px !important;
+    font-weight: 600;
+  }
+  .partner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  .partner img {
+    height: 56px;
+    width: auto;
+  }
+</style>

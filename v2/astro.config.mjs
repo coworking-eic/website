@@ -14,14 +14,8 @@ const alt = {
   "/events/after-work": "/veranstaltungen/after-work",
   "/events/after-work-954": "/veranstaltungen/after-work",
   "/events/thex-sprechtag-794": "/veranstaltungen/thex-sprechtag",
+  "/cowork-mitte": "/coworkmitte",
   "/events/digi-kidz-programmieren-tuefteln-und-entdecken": "/veranstaltungen/digikidz-programmieren",
-};
-
-// CoworkMitte hat eine eigene Website. Die Adresse /coworkmitte steht auf dem Flyer
-// und leitet deshalb (wie die alte WordPress-Adresse /cowork-mitte) dorthin weiter.
-const extern = {
-  "/coworkmitte": "https://coworkmitte.com/",
-  "/cowork-mitte": "https://coworkmitte.com/",
 };
 
 export default defineConfig({
@@ -29,8 +23,5 @@ export default defineConfig({
   base,
   trailingSlash: "ignore",
   build: { format: "directory" },
-  redirects: {
-    ...Object.fromEntries(Object.entries(alt).map(([von, nach]) => [von, mitBasis(nach)])),
-    ...extern,
-  },
+  redirects: Object.fromEntries(Object.entries(alt).map(([von, nach]) => [von, mitBasis(nach)])),
 });
